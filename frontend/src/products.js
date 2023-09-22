@@ -8,8 +8,8 @@ const products = [
         category: 'Woodcarvig',
         price: 80,
         countInStock: 2,
-        rating: 5,
-        numReviews: 4,
+        rating: 3,
+        numReviews: 3,
     },
     {
         _id: '2',
@@ -32,8 +32,8 @@ const products = [
         category: 'painting',
         price: 83,
         countInStock: 2,
-        rating: 5,
-        numReviews: 4,
+        rating: 3.5,
+        numReviews: 3.5,
     },
     {
         _id: '4',
@@ -44,8 +44,8 @@ const products = [
         category: 'painting',
         price: 80,
         countInStock: 2,
-        rating: 5,
-        numReviews: 3,
+        rating: 2,
+        numReviews: 2,
     },
     {
         _id: '5',
@@ -56,7 +56,7 @@ const products = [
         category: 'painting',
         price: 80,
         countInStock: 2,
-        rating: 5,
+        rating: 3,
         numReviews: 3,
     },
     {
@@ -67,8 +67,8 @@ const products = [
         category: 'painting',
         price: 80,
         countInStock: 2,
-        rating: 5,
-        numReviews: 3,
+        rating: 4.5,
+        numReviews: 4.5,
     }
 ]
 
