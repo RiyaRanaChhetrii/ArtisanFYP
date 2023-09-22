@@ -36,7 +36,7 @@ const Signup = () => {
               <h3>
                 SIGN UP
               </h3>
-              <Form>
+              <Form onSubmit={SignupUser}>
                 <Form.Group className="mb-3" controlId="formBasicName">
                   <Form.Label>Name</Form.Label>
                   <Form.Control type="text" name="name" value={user.name} placeholder="Enter Name" onChange={handleChange} />
