@@ -1,2 +1,0 @@
-# ArtisanFYP
-Final year Project
