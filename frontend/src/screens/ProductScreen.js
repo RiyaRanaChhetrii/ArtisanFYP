@@ -1,13 +1,26 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom'; // Import useParams
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import products from '../products';
+import axios from 'axios';
 
 const ProductScreen = () => {
-  const { id } = useParams(); // Use useParams to access route parameters
+    const { id } = useParams(); // Use useParams to get the 'id' parameter
 
-  const product = products.find((p) => p._id === id);
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const { data } = await axios.get(`/api/products/${id}`);
+                setProduct(data);
+            } catch (error) {
+                console.error('Error fetching product:', error);
+            }
+        }
+
+        fetchProduct();
+      }, [id])
 
   return (
     <>
