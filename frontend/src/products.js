@@ -4,7 +4,7 @@ const products = [
         name: 'Deer',
         image: '/images/deer.jpg',
         describe: 
-        'Wooden statue of deer',
+        'Check out our wood baby deer selection for the very best in unique or custom, handmade pieces from our kids',
         category: 'Woodcarvig',
         price: 80,
         countInStock: 2,
@@ -16,7 +16,7 @@ const products = [
         name: 'Rabbit',
         image: '/images/rabbit.jpg',
         describe: 
-        'God paintig',
+        'Handmade wooden baby Rabbit. ',
         category: 'painting',
         price: 82,
         countInStock: 3,
@@ -40,7 +40,7 @@ const products = [
         name: 'Craft Flower',
         image: '/images/craftFlower.jpg',
         describe: 
-        'Mountain painting',
+        'Beautiful handicraft flower design',
         category: 'painting',
         price: 80,
         countInStock: 2,
@@ -69,6 +69,28 @@ const products = [
         countInStock: 2,
         rating: 4.5,
         numReviews: 4.5,
+    },
+    {
+        _id: '7',
+        name: 'Mountain painting',
+        image: '/images/god.jpg',
+        describe: 'Mountain painting',
+        category: 'painting',
+        price: 80,
+        countInStock: 2,
+        rating: 4.5,
+        numReviews: 4,
+    },
+    {
+        _id: '8',
+        name: 'Mountain painting',
+        image: '/images/god.jpg',
+        describe: 'Mountain painting',
+        category: 'painting',
+        price: 80,
+        countInStock: 2,
+        rating: 4.5,
+        numReviews: 4,
     }
 ]
 
