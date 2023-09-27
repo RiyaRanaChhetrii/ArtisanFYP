@@ -1,10 +1,10 @@
 const products = [
     {
         _id: '1',
-        name: 'Deer',
-        image: '/images/deer.jpg',
+        name: 'Nepali Painting',
+        image: '/images/NepaliPainting.jpg',
         describe: 
-        'Check out our wood baby deer selection for the very best in unique or custom, handmade pieces from our kids',
+        "Introducing our exquisite digital Nepali village wall art collection!",
         category: 'Woodcarvig',
         price: 80,
         countInStock: 2,
@@ -13,10 +13,10 @@ const products = [
     },
     {
         _id: '2',
-        name: 'Rabbit',
-        image: '/images/rabbit.jpg',
+        name: 'Tharu house',
+        image: '/images/tharuhouse.jpg',
         describe: 
-        'Handmade wooden baby Rabbit. ',
+        'Nepali Tharu house box represent our nepali traditional house',
         category: 'painting',
         price: 82,
         countInStock: 3,
@@ -25,10 +25,10 @@ const products = [
     },
     {
         _id: '3',
-        name: 'God paining',
+        name: 'Nepali Painting',
         image: '/images/godpainting.jpg',
         describe: 
-        'God painting',
+        'Nepali painting represent Nepalese culture and traditional',
         category: 'painting',
         price: 83,
         countInStock: 2,
@@ -40,7 +40,7 @@ const products = [
         name: 'Craft Flower',
         image: '/images/craftFlower.jpg',
         describe: 
-        'Beautiful handicraft flower design',
+        'Beautiful craving flower design',
         category: 'painting',
         price: 80,
         countInStock: 2,
@@ -62,24 +62,25 @@ const products = [
     {
         _id: '6',
         name: 'Mountain painting',
-        image: '/images/painting.jpg',
-        describe: 'Mountain painting',
-        category: 'painting',
-        price: 80,
-        countInStock: 2,
-        rating: 4.5,
-        numReviews: 4.5,
-    },
-    {
-        _id: '7',
-        name: 'Mountain painting',
-        image: '/images/god.jpg',
+        image: '/images/tibetanwooden.jpg',
         describe: 'Mountain painting',
         category: 'painting',
         price: 80,
         countInStock: 2,
         rating: 4.5,
         numReviews: 4,
+    },
+    {
+        _id: '7',
+        name: 'Limbu painting',
+        image: '/images/painting.jpg',
+        describe: 
+        'A beautiful Nepali girl who represent Nepalese culture',
+        category: 'painting',
+        price: 80,
+        countInStock: 2,
+        rating: 4.5,
+        numReviews: 4.5,
     },
     {
         _id: '8',
@@ -94,4 +95,4 @@ const products = [
     }
 ]
 
-module.exports = products
+export default products
