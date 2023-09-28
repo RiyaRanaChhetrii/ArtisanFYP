@@ -1,6 +1,6 @@
 const products = [
     {
-        _id: '1',
+
         name: 'Nepali Painting',
         image: '/images/NepaliPainting.jpg',
         describe: 
@@ -12,7 +12,6 @@ const products = [
         numReviews: 3,
     },
     {
-        _id: '2',
         name: 'Tharu house',
         image: '/images/tharuhouse.jpg',
         describe: 
@@ -24,7 +23,6 @@ const products = [
         numReviews: 5,
     },
     {
-        _id: '3',
         name: 'Nepali Painting',
         image: '/images/godpainting.jpg',
         describe: 
@@ -36,7 +34,6 @@ const products = [
         numReviews: 3.5,
     },
     {
-        _id: '4',
         name: 'Craft Flower',
         image: '/images/craftFlower.jpg',
         describe: 
@@ -48,7 +45,6 @@ const products = [
         numReviews: 2,
     },
     {
-        _id: '5',
         name: 'Light',
         image: '/images/lightt.jpg',
         describe: 
@@ -60,7 +56,6 @@ const products = [
         numReviews: 3,
     },
     {
-        _id: '6',
         name: 'Mountain painting',
         image: '/images/tibetanwooden.jpg',
         describe: 'Mountain painting',
@@ -71,7 +66,6 @@ const products = [
         numReviews: 4,
     },
     {
-        _id: '7',
         name: 'Limbu painting',
         image: '/images/painting.jpg',
         describe: 
@@ -83,7 +77,6 @@ const products = [
         numReviews: 4.5,
     },
     {
-        _id: '8',
         name: 'Mountain painting',
         image: '/images/god.jpg',
         describe: 'Mountain painting',
