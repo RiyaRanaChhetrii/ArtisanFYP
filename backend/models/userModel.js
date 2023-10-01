@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
         default: false //By default, user is not an admin 
     }
 }, {
-    timestaps: true // Enable timestamps for automatic createdAt and updatedAt fields
+    timestamps: true // Enable timestamps for automatic createdAt and updatedAt fields
 })
 
 const User = mongoose.model('User', userSchema)

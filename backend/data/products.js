@@ -7,7 +7,7 @@ const products = [
         "Introducing our exquisite digital Nepali village wall art collection!",
         category: 'Woodcarvig',
         price: 80,
-        countInStock: 2,
+        countInStock: 10,
         rating: 3,
         numReviews: 3,
     },

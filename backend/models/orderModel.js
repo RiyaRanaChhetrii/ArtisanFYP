@@ -60,7 +60,7 @@ const orderSchema = mongoose.Schema(
         required: true,  
         default: 0.0  
     },
-    ispaid: {
+    isPaid: {
         type: Boolean,
         required: true,  
         default: false  
@@ -78,7 +78,7 @@ const orderSchema = mongoose.Schema(
     },
 
 }, {
-    timestaps: true // Enable timestamps for automatic createdAt and updatedAt fields
+    timestamps: true // Enable timestamps for automatic createdAt and updatedAt fields
 })
 
 const Order = mongoose.model('Order', orderSchema)
