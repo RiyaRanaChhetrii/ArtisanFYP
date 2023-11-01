@@ -100,12 +100,12 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
     const {
       userLogin: { userInfo },
-    } = getState; //give access to te logged in users object
+    } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: ` Bearer ${userInfo.token}`,
       },
     };
 
@@ -115,7 +115,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       type: USER_DETAILS_SUCCESS,
       payload: data,
     });
-  
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -126,3 +125,5 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+
