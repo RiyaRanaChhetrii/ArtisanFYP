@@ -5,7 +5,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
-import { getUserDetails } from "../action/userAction";
+import { getUserDetails, updateUserProfile } from "../action/userAction";
 
 const ProfileScreen = () => {
   const [name, setName] = useState("");
@@ -23,6 +23,9 @@ const ProfileScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {  //Handle the case when user info is not avaiable eg. user not logged in
@@ -43,7 +46,7 @@ const ProfileScreen = () => {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
-      //DISPATCH UPDATE PROFILE
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
   };
 
@@ -52,6 +55,7 @@ const ProfileScreen = () => {
     <h1>User Profile</h1>
       {message && <MessageOne variant="danger">{message}</MessageOne>}
       {error && <MessageOne variant="danger">{error}</MessageOne>}
+      {success && <MessageOne variant="success">Your Profile has  been Updated</MessageOne>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name">
