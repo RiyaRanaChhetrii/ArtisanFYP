@@ -31,6 +31,7 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {}}, actio
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
 
+      // Update shipping address in state on CART_SAVE_SHIPPING_ADDRESS action
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,
