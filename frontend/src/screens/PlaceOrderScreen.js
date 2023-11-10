@@ -8,9 +8,24 @@ import MessageOne from "../components/MessageOne";
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
 
+  // Calculates total price of items in shopping cart by multiplying price of each item by its quantity and summing values
+
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
+
+  cart.itemsPrice = addDecimals(
+    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  );
+
+  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
+  cart.totalPrice = (
+    Number(cart.itemsPrice) + Number(cart.shippingPrice)
+  ).toFixed(2);
+
   const placeOrderHandler = () => {
-    console.log("order")
-  }
+    console.log("order");
+  };
 
   return (
     <>
@@ -88,12 +103,12 @@ const PlaceOrderScreen = () => {
                   <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              {/* <ListGroup.Item>
                 <Row>
                   <Col>Tax</Col>
                   <Col>${cart.taxPrice}</Col>
                 </Row>
-              </ListGroup.Item>
+              </ListGroup.Item> */}
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
@@ -104,7 +119,6 @@ const PlaceOrderScreen = () => {
                 <Button
                   type="button"
                   className="btn-block"
-                  
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
