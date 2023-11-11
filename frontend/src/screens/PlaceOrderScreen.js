@@ -1,11 +1,15 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
 import MessageOne from "../components/MessageOne";
+import { createOrder } from "../action/orderAction";
 
 const PlaceOrderScreen = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const cart = useSelector((state) => state.cart);
 
   // Calculates total price of items in shopping cart by multiplying price of each item by its quantity and summing values
@@ -23,8 +27,26 @@ const PlaceOrderScreen = () => {
     Number(cart.itemsPrice) + Number(cart.shippingPrice)
   ).toFixed(2);
 
+  const orderCreate = useSelector(state => state.orderCreate)
+  const { order, success, error } = orderCreate
+
+  useEffect(() => {
+    if(success) {
+      navigate(`/order/${order._id}`)
+    }
+    // eslint-disable-next-line
+    
+  }, [navigate, success])
+
   const placeOrderHandler = () => {
-    console.log("order");
+    dispatch(createOrder({
+      orderItems: cart.cartItems,
+      shippingAddress: cart.shippingAddress,
+      paymentMethod: cart.paymentMethod,
+      itemsPrice: cart.itemsPrice,
+      shippingPrice: cart.shippingPrice,
+      totalPrice: cart.totalPrice,
+    }))
   };
 
   return (
@@ -114,6 +136,9 @@ const PlaceOrderScreen = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <MessageOne variant='danger'>{error}</MessageOne>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
