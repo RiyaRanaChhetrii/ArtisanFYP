@@ -53,12 +53,12 @@ export const createOrder = (order) => async (dispatch, getState) => {
       } = getState();
   
       const config = {
-        headers: {
+        headers: {    
           Authorization: ` Bearer ${userInfo.token}`,
         },
       };
   
-      const { data } = await axios.get(`/api/orders${id}`, config); // Request to the backend
+      const { data } = await axios.get(`/api/orders/${id}`, config); // Request to the backend
   
       dispatch({
         type: ORDER_DETAILS_SUCCESS,
