@@ -14,15 +14,15 @@ const OrderScreen = () => {
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
-  if(!loading){
+  if (!loading) {
     // Calculates total price of items in shopping cart by multiplying price of each item by its quantity and summing values
-  const addDecimals = (num) => {
-    return (Math.round(num * 100) / 100).toFixed(2);
-  };
+    const addDecimals = (num) => {
+      return (Math.round(num * 100) / 100).toFixed(2);
+    };
 
-  order.itemsPrice = addDecimals(
-    order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-  );
+    order.itemsPrice = addDecimals(
+      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    );
   }
 
   useEffect(() => {
@@ -41,8 +41,13 @@ const OrderScreen = () => {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h2>Shipping</h2>
-              <p><strong>Name: </strong> {order.user.name}</p>
-              <p><strong>Email: </strong><a href={`mailto:${order.user.email}`}>{order.user.email}</a></p>
+              <p>
+                <strong>Name: </strong> {order.user.name}
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+              </p>
               <p>
                 <strong>Address: </strong>
                 {/* Accessing address, city, postal Code and country property of shippingAddress object*/}
@@ -50,13 +55,31 @@ const OrderScreen = () => {
                 {order.shippingAddress.postalCode},{" "}
                 {order.shippingAddress.country},
               </p>
+
+              {order.isDelivered ? (
+                <MessageOne variant="success">
+                  Delivered on {order.deliveredAt}
+                </MessageOne>
+              ) : (
+                <MessageOne variant="danger">Not Delivered</MessageOne>
+              )}
             </ListGroup.Item>
 
             <ListGroup.Item>
               <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {/* Displaying payment method */}
-              {order.paymentMethod}
+              <p>
+                <strong>Method: </strong>
+                {/* Displaying payment method */}
+                {order.paymentMethod}
+              </p>
+              {order.isPaid ? (
+                <MessageOne variant="success">
+                  Paid on {order.paidAt}
+                </MessageOne>
+              ) : (
+                <MessageOne variant="danger">Not Paid</MessageOne>
+              )}
+              
             </ListGroup.Item>
 
             <ListGroup.Item>
