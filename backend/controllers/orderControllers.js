@@ -42,17 +42,47 @@ const addOrderItems = asyncHandler(async (req, res) => {
 //desc    Get order by ID
 //route   GET /api/orders/:id
 //access  Private
-const getOrderById= asyncHandler(async (req, res) => {
+const getOrderById = asyncHandler(async (req, res) => {
   // Retrieve the order by ID and populate the 'user' field with 'name' and 'email'
-  const order = await Order.findById(req.params.id).populate('user', 'name email')
+  const order = await Order.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
 
   // Check if the order exists
-  if(order){
-    res.json(order) // Send the order details as a JSON response
+  if (order) {
+    res.json(order); // Send the order details as a JSON response
   } else {
-    res.status(404) // If the order is not found, set a 404 status and throw an error
-    throw new Error('Order not found') 
+    res.status(404); // If the order is not found, set a 404 status and throw an error
+    throw new Error("Order not found");
   }
 });
 
-export { addOrderItems, getOrderById };
+
+//desc    Update order to paid
+//route   GET /api/orders/:id/pay
+//access  Private
+const updateOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id)
+
+  
+  if (order) {
+    order.isPaid = true
+    order.paidAt = Date.now()
+    order.paymentResult = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address
+    }
+
+    const updateOrder = await order.save()
+
+    res.json(updateOrder)
+  } else {
+    res.status(404); 
+    throw new Error("Order not found");
+  }
+});
+
+export { addOrderItems, getOrderById, updateOrderToPaid };
