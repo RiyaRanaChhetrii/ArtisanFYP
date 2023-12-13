@@ -67,7 +67,6 @@ import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
 import { login } from "../action/userAction";
 
-
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -75,14 +74,16 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector(state => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, userInfo, error } = userLogin;
+  console.log(userInfo)
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
-  
 
   useEffect(() => {
+
     if (userInfo) {
+      console.log("Navigating to:", redirect);
       navigate(redirect);
     }
   }, [navigate, userInfo, redirect]);
