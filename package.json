@@ -30,7 +30,8 @@
     "express-async-handler": "^1.2.0",
     "i": "^0.3.7",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.6.5"
+    "mongoose": "^7.6.5",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.1",

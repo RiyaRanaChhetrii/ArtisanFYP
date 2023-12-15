@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
@@ -9,10 +10,16 @@ import { getOrderDetails } from "../action/orderAction";
 
 const OrderScreen = () => {
   const { id } = useParams();
+
+  const [sdkReady, setSdkReady] = useState(false)
+
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const { loading:loadingPay, sucess:successPay} = orderPay;
 
   if (!loading) {
     // Calculates total price of items in shopping cart by multiplying price of each item by its quantity and summing values
@@ -26,8 +33,28 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
-    dispatch(getOrderDetails(id));
-  }, [dispatch, id]);
+    const addPayPalScript = async () => {
+      const { data: clientId } = await axios.get('/api/config/paypal')
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.async = true
+      script.onload = () => {
+        setSdkReady(true)
+      }
+      document.body.appendChild(script)
+    }
+    if(!order || successPay) {
+      dispatch(getOrderDetails(id));
+    } else if(!order.isPaid) {
+      if(!window.paypal) {
+        addPayPalScript()
+      } else {
+        setSdkReady(true)
+      }
+    }
+
+  }, [dispatch, id, successPay, order]);
 
   return loading ? (
     <Loader />

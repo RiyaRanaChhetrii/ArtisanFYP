@@ -58,7 +58,7 @@ export const orderDetailsReducers = (
   }
 };
 
-export const orderPayReducers = (state = {}, action) => {
+export const orderPayReducer = (state = {}, action) => {
   switch (action.type) {
     case ORDER_PAY_REQUEST:
       return {
