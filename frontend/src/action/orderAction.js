@@ -122,7 +122,7 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
 export const listMyOrders = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: ORDER_LIST_MY_REQUEST,
+      type: ORDER_LIST_MY_REQUEST, 
     });
 
     const {
