@@ -17,6 +17,7 @@ import {
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
+  USER_LIST_RESET
 } from "../constants/userConstants";
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
 
@@ -55,11 +56,13 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
+ // Dispatch actions to reset user-related and order-related state
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
-  dispatch({ type: USER_LOGOUT });
-  dispatch({ type: USER_DETAILS_RESET });
-  dispatch({ type: ORDER_LIST_MY_RESET });
+  dispatch({ type: USER_LOGOUT }); // Reset user login state
+  dispatch({ type: USER_DETAILS_RESET }); // Reset user details state
+  dispatch({ type: ORDER_LIST_MY_RESET }); // Reset user's order list state
+  dispatch({ type: USER_LIST_RESET });  // Reset user list state
 };
 
 export const register = (name, email, password) => async (dispatch) => {
