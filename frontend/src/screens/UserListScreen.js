@@ -30,7 +30,7 @@ const UserListScreen = () => {
       navigate('/login');
     }
     dispatch(listUsers());
-  }, [dispatch, useNavigate, successDelete]);
+  }, [dispatch, navigate, successDelete, userInfo]);
 
   // // Function to handle user deletion (currently logging to console)
   // const deleteHandler = (id) => {
@@ -85,7 +85,7 @@ const deleteHandler = (id) => {
                 </td>
                 <td>
                   {/* Edit button with a link to user edit page */}
-                  <LinkContainer to={`/user/${user._id}/edit`}>
+                  <LinkContainer to={`/admin/user/${user._id}/edit`}>
                     <Button variant="light" className="btn-sm">
                       <i className="fas fa-edit"></i>
                     </Button>
