@@ -117,21 +117,25 @@ const getUsers = asyncHandler(async (req, res) => {
 //desc    Delete user
 //route   DELETE /api/users/:id
 //access  Private/Admin
-const deleteUser = asyncHandler(async (req, res) => {
-  //Find user by ID
-  const user = await User.findById(res.params.id);
 
-  //Check if user exist
-  if (user) {
-    //Remove the user from the database
-    await user.remove();
-    res.json({ message: "User removed" });
-  } else {
-    // If user not found, send a 404 response and throw an error
-    res.status(404);
-    throw new Error("User not found");
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    console.log("User:", user);
+
+    if (user) {
+
+      res.json({ message: "User removed" });
+    } else {
+      console.log("User not found");
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 
 export {
   authUser,

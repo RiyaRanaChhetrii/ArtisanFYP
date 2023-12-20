@@ -18,6 +18,7 @@ router
   .put(protect, updateUserProfile);
 
 // Route for deleting a user by ID, require admin   
-router.route(':id').delete(protect, admin, deleteUser)
+router.route('/:id').delete(protect, admin, deleteUser);
 
 export default router;
+ 

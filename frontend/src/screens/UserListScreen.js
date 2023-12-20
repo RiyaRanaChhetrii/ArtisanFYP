@@ -5,7 +5,7 @@ import { Table, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
-import { listUsers } from "../action/userAction";
+import { listUsers, deleteUser } from "../action/userAction";
 
 const UserListScreen = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ const UserListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success:successDelete } = userDelete;
+
   // Dispatch action to list users when the component mounts
   useEffect(() => {
     if(userInfo && userInfo.isAdmin) {
@@ -27,12 +30,21 @@ const UserListScreen = () => {
       navigate('/login');
     }
     dispatch(listUsers());
-  }, [dispatch, useNavigate]);
+  }, [dispatch, useNavigate, successDelete]);
 
-  // Function to handle user deletion (currently logging to console)
-  const deleteHandler = (id) => {
-    console.log('delete')
+  // // Function to handle user deletion (currently logging to console)
+  // const deleteHandler = (id) => {
+  //   dispatch(deleteUser(id))
+  // }
+
+  // Function to handle user deletion
+const deleteHandler = (id) => {
+  if (window.confirm('Are you sure you want to delete this user?')) {
+    // Dispatch the deleteUser action
+    dispatch(deleteUser(id));
   }
+};
+
 
   return (
     <>
