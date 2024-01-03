@@ -5,12 +5,15 @@ import {
   CART_SAVE_SHIPPING_ADDRESS,
 } from "../constants/cartConstants";
 
-export const cartReducer = (state = { cartItems: [], shippingAddress: {}}, action) => {
+export const cartReducer = (
+  state = { cartItems: [], shippingAddress: {} },
+  action
+) => {
   switch (action.type) {
     case CART_ADD_ITEM:
       const item = action.payload;
 
-      const existItem = state.cartItems.find((x) => x.product === item.product)
+      const existItem = state.cartItems.find((x) => x.product === item.product);
 
       if (existItem) {
         return {
@@ -32,18 +35,18 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {}}, actio
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
 
-      // Update shipping address in state on CART_SAVE_SHIPPING_ADDRESS action
+    // Update shipping address in state on CART_SAVE_SHIPPING_ADDRESS action
     case CART_SAVE_SHIPPING_ADDRESS:
       return {
         ...state,
         shippingAddress: action.payload,
       };
 
-      case CART_SAVE_PAYMENT_METHOD:
-        return {
-          ...state,
-          paymentMethod: action.payload,
-        };
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
 
     default:
       return state;

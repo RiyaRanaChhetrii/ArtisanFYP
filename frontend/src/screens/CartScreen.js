@@ -11,7 +11,7 @@ import {
   Card,
 } from "react-bootstrap";
 import MessageOne from "../components/MessageOne";
-import { addToCart } from "../action/cartAction";
+import { addToCart, removeFromCart } from "../action/cartAction";
 
 const CartScreen = () => {
   const { id } = useParams();
@@ -34,7 +34,7 @@ const CartScreen = () => {
 
   const removeFromCardHandler = (id) => {
     console.log("remove");
-    // dispatch(removeFromCart(id))
+    dispatch(removeFromCart(id))
   };
 
   const checkoutHandler = () => {
