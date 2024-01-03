@@ -25,22 +25,22 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
 } from "../constants/userConstants";
-
 // Reducer for handling user login actions.
-export const userLoginReducer = (state = { user: {} }, action) => {
+
+export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true }
     case USER_LOGIN_SUCCESS:
-      return { loading: false, user: action.payload };
+      return { loading: false, userInfo: action.payload }
     case USER_LOGIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: action.payload }
     case USER_LOGOUT:
-        return {}
+      return {}
     default:
-      return state;
+      return state
   }
-};
+}
 
 // Reducer for handling user registration actions.
 export const userRegisterReducer = (state = {}, action) => {
