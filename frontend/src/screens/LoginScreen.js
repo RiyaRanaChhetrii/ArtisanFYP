@@ -17,13 +17,15 @@ const LoginScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo, error } = userLogin;
-  console.log(userInfo)
+  // console.log(userInfo)
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  // const redirect = location.search ? location.search.split('=')[1] : "/";
+  const queryParams = new URLSearchParams(location.search);
+const redirect = queryParams.get('redirect') || '/';
+
 
   useEffect(() => {
     if (userInfo) {
-      console.log("Navigating to:", redirect);
       navigate(redirect);
     }
   }, [navigate, userInfo, redirect]);

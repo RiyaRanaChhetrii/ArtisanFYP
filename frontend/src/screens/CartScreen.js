@@ -26,6 +26,10 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems = [] } = cart; // Provide an empty array as a default value
 
+    // Use useSelector to get userInfo from the Redux state
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
@@ -38,8 +42,15 @@ const CartScreen = () => {
   };
 
   const checkoutHandler = () => {
-    navigate("/login?redirect=shipping");
+    if (userInfo) {
+      // User is logged in, navigate to the shipping page
+      navigate('/shipping');
+    } else {
+      // User is not logged in, navigate to the login page with redirect to shipping
+      navigate('/login?redirect=shipping');
+    }
   };
+  
 
   return (
     <Row>

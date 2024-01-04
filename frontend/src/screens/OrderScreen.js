@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
@@ -16,12 +16,16 @@ const OrderScreen = () => {
   const [sdkReady, setSdkReady] = useState(false)
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
   const orderPay = useSelector((state) => state.orderPay);
-  const { loading:loadingPay, sucess:successPay} = orderPay;
+  const { loading: loadingPay, success: successPay} = orderPay;
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   if (!loading) {
     // Calculates total price of items in shopping cart by multiplying price of each item by its quantity and summing values
@@ -35,6 +39,9 @@ const OrderScreen = () => {
   }
 
   useEffect(() => {
+    if(!userInfo) {
+      navigate('/login')
+    }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')
@@ -179,7 +186,7 @@ const OrderScreen = () => {
               </ListGroup.Item>
               {!order.isPaid && (
                 <ListGroup.Item>
-                  {loading && <Loader />}
+                  {loadingPay && <Loader />}
                   {!sdkReady ? <Loader /> :(
                     <PayPalButton amount={order.totalPrice} onSuccess=
                     {successPaymentHandler}/>
