@@ -5,7 +5,7 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
-import { listProducts } from "../action/productAction";
+import { listProducts, deleteProduct } from "../action/productAction";
 
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -14,6 +14,13 @@ const ProductListScreen = ({ match }) => {
   // Get product list from Redux state
   const productList = useSelector((state) => state.productList);
   const { loading, error, products } = productList;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -26,17 +33,17 @@ const ProductListScreen = ({ match }) => {
     } else {
       navigate("/login"); //if not admin redirect to the login
     }
-  }, [dispatch, navigate, userInfo]);
+  }, [dispatch, navigate, userInfo, successDelete]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-      // DELETE PRODUCTS
+      dispatch(deleteProduct(id));
     }
   };
 
   const createProductHandler = (product) => {
     //CREATE PRODUCT
-  }
+  };
 
   return (
     <>
@@ -50,6 +57,8 @@ const ProductListScreen = ({ match }) => {
           </Button>
         </Col>
       </Row>
+      {loadingDelete && <Loader />}
+      {errorDelete && <MessageOne variant='danger'>{errorDelete}</MessageOne>}
       {loading ? (
         // Show loader while data is being fetched
         <Loader />
@@ -84,7 +93,7 @@ const ProductListScreen = ({ match }) => {
                       <i className="fas fa-edit"></i>
                     </Button>
                   </LinkContainer>
-                  
+
                   <Button
                     variant="danger"
                     className="btn-sm"
