@@ -1,12 +1,13 @@
 // import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import MessageOne from '../components/MessageOne'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductsDetails } from "../action/productAction";
+import { listProductsDetails, updateProduct } from "../action/productAction";
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 // import { PRODUCT_UPDATE_RESET } from '../constants/productConstants' 
 
 const ProductEditScreen = () => {
@@ -22,36 +23,38 @@ const { productId } = useParams();
 //   const [uploading, setUploading] = useState(false)
 
   const dispatch = useDispatch()
-//   const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
 
-//   const productUpdate = useSelector((state) => state.productUpdate)
-//   const {
-//     loading: loadingUpdate,
-//     error: errorUpdate,
-//     success: successUpdate,
-//   } = productUpdate
+  const productUpdate = useSelector((state) => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
 
 useEffect(() => {
+  if(successUpdate) {
+    dispatch({ type: PRODUCT_UPDATE_RESET})
+    navigate('/admin/productlist')
+  } else {
     if (!product || product._id !== productId || loading || !productId) {
       // Check if productId is defined before dispatching the action
       if (productId) {
         dispatch(listProductsDetails(productId));
       }
     } else {
-      setName(product.name || ''); 
-      setPrice(product.price || 0);
-      setImage(product.image || '');
-      setCategory(product.category || '');
-      setCountInStock(product.countInStock || 0);
-      setDescribe(product.describe || '');
+      setName(product.name); 
+      setPrice(product.price);
+      setImage(product.image);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescribe(product.describe);
     }
-  }, [dispatch, productId, product, loading]);
-  
-  
-//   successUpdate
+  }
+  }, [dispatch, productId, product, successUpdate, loading]);
 
 //   const uploadFileHandler = async (e) => {
 //     const file = e.target.files[0]
@@ -78,18 +81,17 @@ useEffect(() => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // dispatch(
-    //   updateProduct({
-    //     _id: productId,
-    //     name,
-    //     price,
-    //     image,
-    //     brand,
-    //     category,
-    //     describe,
-    //     countInStock,
-    //   })
-    // )
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        image,
+        category,
+        describe,
+        countInStock,
+      })
+    )
   }
 
   return (
@@ -99,8 +101,8 @@ useEffect(() => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
-        {/* {loadingUpdate && <Loader />}
-        {errorUpdate && <MessageOne variant='danger'>{errorUpdate}</MessageOne>} */}
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <MessageOne variant='danger'>{errorUpdate}</MessageOne>}
         {loading ? (
           <Loader />
         ) : error ? (
