@@ -56,7 +56,7 @@ const createProduct = asyncHandler(async (req, res) => {
     category: 'Sample category',
     countInStock: 0,
     numReviews: 0,
-    description: 'Sample description',
+    describe: 'Sample description',
   })
 
   const createdProduct = await product.save()
@@ -70,7 +70,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const {
     name,
     price,
-    description,
+    describe,
     image,
     category,
     countInStock,
@@ -88,7 +88,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)
-  } else {
+  } else {  
     res.status(404)
     throw new Error('Product not found')
   }

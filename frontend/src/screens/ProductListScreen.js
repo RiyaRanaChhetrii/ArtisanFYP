@@ -5,7 +5,8 @@ import { Table, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
-import { listProducts, deleteProduct } from "../action/productAction";
+import { listProducts, deleteProduct, createProduct } from "../action/productAction";
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 
 const ProductListScreen = ({ match }) => {
   const dispatch = useDispatch();
@@ -22,27 +23,40 @@ const ProductListScreen = ({ match }) => {
     success: successDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate)
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   // Dispatch action to list users when the component mounts
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      //check for admin
-      dispatch(listProducts());
+    dispatch({ type: PRODUCT_CREATE_RESET })
+
+    if (!userInfo.isAdmin) {
+      navigate('/login') //if not admin redirect to the login
+    } 
+
+    if(successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      navigate("/login"); //if not admin redirect to the login
+      dispatch(listProducts())
     }
-  }, [dispatch, navigate, userInfo, successDelete]);
+  }, [dispatch, navigate, userInfo, successDelete, successCreate, createdProduct]);
 
   const deleteHandler = (id) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (window.confirm("Are you sure you want to delete this product?")) {
       dispatch(deleteProduct(id));
     }
   };
 
-  const createProductHandler = (product) => {
-    //CREATE PRODUCT
+  const createProductHandler = () => {
+    dispatch(createProduct())
   };
 
   return (
@@ -59,6 +73,8 @@ const ProductListScreen = ({ match }) => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <MessageOne variant='danger'>{errorDelete}</MessageOne>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <MessageOne variant='danger'>{errorCreate}</MessageOne>}
       {loading ? (
         // Show loader while data is being fetched
         <Loader />
