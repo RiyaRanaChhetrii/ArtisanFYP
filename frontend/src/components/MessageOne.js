@@ -3,9 +3,11 @@ import { Alert } from 'react-bootstrap'
 
 const MessageOne = ({variant, children}) => {
   return (
+    <div>
     <Alert variant={variant}>
         {children}
     </Alert>
+    </div>
   )
 }
 
