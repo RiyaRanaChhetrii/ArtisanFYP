@@ -5,16 +5,37 @@ import Product from "../models/productModel.js";
 //route   GET/api/products
 //access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const keyword = req.query.keyword ? {
-    name: {
-      $regex: req.query.keyword,
-      $options: 'i'
-    }
-  } : {}
 
-  const product = await Product.find({ ...keyword });
-  res.json(product); //convert products json
+  //Handle product pagination
+  // Define the number of products to show per page
+  const pageSize = 2;
+
+  // Get the page number from the request query, default to 1 if not provided
+  const page = Number(req.query.pageNumber) || 1;
+
+  // Construct a MongoDB query for filtering products based on a keyword in the name
+ 
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: "i",
+        },
+      }
+    : {};
+
+   // Count the total number of products matching the keyword
+
+  const count = await Product.countDocuments({ ...keyword });
+
+  // Retrieve products based on the keyword, applying pagination with limit and skip
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize) // Limit the number of products per page
+    .skip(pageSize * (page - 1)); // Skip products for previous pages
+
+  res.json({ products, page, pages: Math.ceil(count / pageSize) });  // Send JSON response containing the products, current page, and total pages
 });
+
 
 //desc    Fetch single products
 //route   GET/api/products/:id
