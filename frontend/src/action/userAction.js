@@ -39,16 +39,18 @@ export const login = (email, password) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post(
-      "/api/users/login",
+    const { data } = await axios.post(  //HTTP post req using axios library 
+      "/api/users/login",  // Login endpoint
       { email, password },
       config
     );
 
-    dispatch({
+    dispatch({  
       type: USER_LOGIN_SUCCESS,
-      payload: data,
+      payload: data, // Provide relavent data stored in state
     });
+
+    // If login failed provide information about error
 
     localStorage.setItem(`userInfo`, JSON.stringify(data));
   } catch (error) {
@@ -64,7 +66,7 @@ export const login = (email, password) => async (dispatch) => {
 
 // Dispatch actions to reset user-related and order-related state
 export const logout = () => (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem("userInfo"); // Remove user info
   dispatch({ type: USER_LOGOUT }); // Reset user login state
   dispatch({ type: USER_DETAILS_RESET }); // Reset user details state
   dispatch({ type: ORDER_LIST_MY_RESET }); // Reset user's order list state

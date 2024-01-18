@@ -25,10 +25,11 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
 } from "../constants/userConstants";
+
 // Reducer for handling user login actions.
 
 export const userLoginReducer = (state = {}, action) => {
-  switch (action.type) {
+  switch (action.type) { // Switch statement to handle diff. action
     case USER_LOGIN_REQUEST:
       return { loading: true }
     case USER_LOGIN_SUCCESS:
@@ -37,12 +38,13 @@ export const userLoginReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case USER_LOGOUT:
       return {}
-    default:
+    default:  //If action type unknown state remains unchanged
       return state
   }
 }
 
 // Reducer for handling user registration actions.
+
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -57,15 +59,17 @@ export const userRegisterReducer = (state = {}, action) => {
 };
 
 // Reducer for handling user details actions.
+// Responsible for managing user state related to user details
+
 export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { ...state, loading: true };
     case USER_DETAILS_SUCCESS:
-      return { loading: false, user: action.payload };
+      return { loading: false, user: action.payload }; // User Payload contains details of user
     case USER_DETAILS_FAIL:
-      return { loading: false, error: action.payload };
-    case USER_DETAILS_RESET:
+      return { loading: false, error: action.payload }; // Error Payload return error if it fails
+    case USER_DETAILS_RESET: // Clear user details from state
       return { user: {} }
     default:
       return state;
@@ -73,6 +77,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
 };
 
 // Reducer for handling user profile update actions.
+
 export const userUpdateProfileReducer = (state = { }, action) => {
   switch (action.type) {
     case USER_UPDATE_PROFILE_REQUEST:
@@ -117,7 +122,7 @@ export const userDeleteReducer = (state = { }, action) => {
   }
 };
 
-// Reducer for handling user deletion actions.
+// Reducer for handling user update actions.
 export const userUpdateReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_UPDATE_REQUEST:
