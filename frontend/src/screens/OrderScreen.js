@@ -78,6 +78,7 @@ const OrderScreen = () => {
     dispatch(payOrder(id, paymentResult));
   };
 
+  //Deliver
   const deliverHandler = () => {
     dispatch(deliverOrder(order))
   }
@@ -211,6 +212,7 @@ const OrderScreen = () => {
                 order.isPaid &&
                 !order.isDelivered && (
                   <ListGroup.Item>
+                    {/* Mark As Delivered Button */}
                     <Button
                       type='button'
                       className='btn btn-block'

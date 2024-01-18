@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import colors from "colors";
 // import cors from "cors";
+import morgan from "morgan";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -15,6 +16,10 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
 
 app.use(express.json()); //allow json data
 
