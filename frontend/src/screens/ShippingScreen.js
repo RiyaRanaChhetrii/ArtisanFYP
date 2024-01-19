@@ -74,7 +74,7 @@ const ShippingScreen = () => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button className="button-rad mt-3" type="submit" variant="primary">
           Continue
         </Button>
       </Form>

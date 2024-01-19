@@ -108,7 +108,7 @@ const ProfileScreen = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Button type="submit" variant="primary">
+          <Button className="button-rad mt-3" type="submit" variant="primary">
             Update
           </Button>
         </Form>
@@ -161,7 +161,7 @@ const ProfileScreen = () => {
                       </td>
                       <td>
                         <LinkContainer to={`/order/${order._id}`}>
-                          <Button className='btn-sm' variant="light">Details</Button>
+                          <Button className='btn-sm button-rad' variant="light">Details</Button>
                         </LinkContainer>
                       </td>
                     </tr>

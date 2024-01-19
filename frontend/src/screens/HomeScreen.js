@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "react-bootstrap";
 import Product from "../components/Product";
@@ -11,12 +12,11 @@ import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const { keyword } = useParams()
+  const { keyword } = useParams();
 
-  const { pageNumber } = useParams() || 1
+  const { pageNumber } = useParams() || 1;
 
-
-  //useSelector grave it from the state 
+  //useSelector grave it from the state
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList; //pull out what we want
 
@@ -27,22 +27,30 @@ const HomeScreen = () => {
   //Display
   return (
     <>
-    {!keyword && <ProductCarousel /> }
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to="/" variant="dark" className="btn btn-dark">Go back</Link>
+      )}
       <h1>Lastest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <MessageOne variant='danger'>{error} </MessageOne>
+        <MessageOne variant="danger">{error} </MessageOne>
       ) : (
         <>
-        <Row>
-          {products.map((product) => (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
-        <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
+          <Row>
+            {products.map((product) => (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ""}
+          />
         </>
       )}
     </>

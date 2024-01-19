@@ -10,7 +10,7 @@ import { login } from "../action/userAction";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,8 +21,7 @@ const LoginScreen = () => {
 
   // const redirect = location.search ? location.search.split('=')[1] : "/";
   const queryParams = new URLSearchParams(location.search);
-const redirect = queryParams.get('redirect') || '/';
-
+  const redirect = queryParams.get("redirect") || "/";
 
   useEffect(() => {
     if (userInfo) {
@@ -50,7 +49,7 @@ const redirect = queryParams.get('redirect') || '/';
             onChange={(e) => setEmail(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Form.Group controlId="password">
+        <Form.Group controlId="password" className="mb-3">
           <Form.Label>Password </Form.Label>
           <Form.Control
             type="password"
@@ -59,7 +58,11 @@ const redirect = queryParams.get('redirect') || '/';
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button
+          className="button-rad pt-3"
+          type="submit"
+          variant="primary"
+        >
           Sign In
         </Button>
       </Form>
@@ -67,7 +70,7 @@ const redirect = queryParams.get('redirect') || '/';
       <Row className="py-3">
         <Col>
           Create Account?{" "}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
             Register
           </Link>
         </Col>

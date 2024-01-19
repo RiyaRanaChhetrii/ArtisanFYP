@@ -138,7 +138,7 @@ const ProductScreen = () => {
                   <ListGroup.Item className="text-center">
                     <Button
                       onClick={addToCartHandler}
-                      className="btn-block"
+                      className="btn-block button-rad"
                       type="button"
                       disabled={product.countInStock === 0}
                     >
@@ -188,7 +188,7 @@ const ProductScreen = () => {
                           <option value="5">5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
-                      <Form.Group controlId="comment">
+                      <Form.Group controlId="comment" className="mb-3">
                         <Form.Label>Comment</Form.Label>
                         <Form.Control
                           as="textarea"
@@ -198,6 +198,7 @@ const ProductScreen = () => {
                         ></Form.Control>
                       </Form.Group>
                       <Button
+                        className="button-rad"
                         // disabled={loadingProductReview}
                         type="submit"
                         variant="primary"

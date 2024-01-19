@@ -125,13 +125,7 @@ const PlaceOrderScreen = () => {
                   <Col>${cart.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {/* <ListGroup.Item>
-                <Row>
-                  <Col>Tax</Col>
-                  <Col>${cart.taxPrice}</Col>
-                </Row>
-              </ListGroup.Item> */}
-              <ListGroup.Item>
+              <ListGroup.Item className="mb-3">
                 <Row>
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
@@ -140,10 +134,10 @@ const PlaceOrderScreen = () => {
               <ListGroup.Item>
                 {error && <MessageOne variant='danger'>{error}</MessageOne>}
               </ListGroup.Item>
-              <ListGroup.Item>
+              <ListGroup.Item className="text-center">
                 <Button
                   type="button"
-                  className="btn-block"
+                  className="btn-block button-rad"
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >

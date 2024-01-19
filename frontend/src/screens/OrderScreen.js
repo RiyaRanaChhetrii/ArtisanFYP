@@ -187,7 +187,7 @@ const OrderScreen = () => {
                   <Col>${order.shippingPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
+              <ListGroup.Item className="mb-3">
                 <Row>
                   <Col>Total</Col>
                   <Col>${order.totalPrice}</Col>
@@ -211,11 +211,11 @@ const OrderScreen = () => {
                 userInfo.isAdmin &&
                 order.isPaid &&
                 !order.isDelivered && (
-                  <ListGroup.Item>
+                  <ListGroup.Item className="text-center">
                     {/* Mark As Delivered Button */}
                     <Button
                       type='button'
-                      className='btn btn-block'
+                      className='btn btn-block button-rad'
                       onClick={deliverHandler}
                     >
                       Mark As Delivered

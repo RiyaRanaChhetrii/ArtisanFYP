@@ -164,7 +164,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="describe">
+            <Form.Group className="mb-3" controlId="describe">
               <Form.Label>Describe</Form.Label>
               <Form.Control
                 type="text"
@@ -174,7 +174,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button className="button-rad" type="submit" variant="primary">
               Update
             </Button>
           </Form>
