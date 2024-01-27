@@ -8,7 +8,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
   //Handle product pagination
   // Define the number of products to show per page
-  const pageSize = 10;
+  const pageSize = 8;
 
   // Get the page number from the request query, default to 1 if not provided
   const page = Number(req.query.pageNumber) || 1;
