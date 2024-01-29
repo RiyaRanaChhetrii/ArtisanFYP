@@ -54,14 +54,15 @@ h2{
 
 .carousel-caption h2 {
   color: #fff;
+
 }
 
 .carousel img {
-  height: 500px;
+
+  height: 23rem;
   display: block;
   padding: 30px;
   margin: 40px;
-  /* border-radius: 50%; */
   border-radius: 50px;  
   margin-left: auto;
   margin-right: auto;

@@ -3,11 +3,12 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom'; // Import Link from 'react-router-dom'
 import Rating from './Rating';
 
+
 const Product = ({ product }) => {
   return (
-    <Card className='my-3 p-3 rounded'>
+    <Card className='my-3 p-3 rounded' style={{ height: '90%' }}>
       <Link to={`/product/${product._id}`}> {/* Use Link component for navigation */}
-        <Card.Img src={product.image} variant='top' />
+        <Card.Img src={`${product.image}`} variant='top' style={{ height: '18rem', width: '100%' }} className='img-fluid'/>
       </Link>
 
       <Card.Body>
