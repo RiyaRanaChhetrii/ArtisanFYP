@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import User from "../models/userModel.js";
+import { sendPasswordResetEmail } from "../utils/email.js";
 
 //desc    Auth user & got token
 //route   POST /api/users/login
@@ -173,6 +174,60 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+//Desc forgot password
+// Forgot password controller function
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Find user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Extract user ID
+    const userId = user._id;
+
+    // Send reset password email with user ID
+    await sendPasswordResetEmail(user.email, userId);
+
+    res.status(200).json({ message: 'Reset password email sent successfully' });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
+// Controller function for resetting the password
+const resetPassword = async (req, res) => {
+  const { newPassword } = req.body;
+
+  const { userId } = req.params;
+
+  try {
+    // Find user by ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    } 
+
+    // Reset the password
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
 export {
   authUser,
   registerUser,
@@ -182,4 +237,6 @@ export {
   deleteUser,
   getUserById,
   updateUser,
+  forgotPassword, 
+  resetPassword
 };

@@ -52,6 +52,16 @@ const PaymentScreen = () => {
             value="CashOnDelivery"
             onChange={(e) => setPaymentMethod(e.target.value)}
           ></Form.Check>
+
+          <Form.Check
+            type="radio"
+            label="Khalti"
+            id="Khalti"
+            name="paymentMethod"
+            value="Khalti"
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          ></Form.Check>
+          
         </Col>
         </Form.Group>
 

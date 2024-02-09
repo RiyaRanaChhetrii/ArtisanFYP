@@ -12,6 +12,7 @@ import {
   ORDER_DELIVER_RESET,
 } from "../constants/orderConstants";
 import { PayPalButton } from "react-paypal-button-v2";
+// import KhaltiCheckout from "khalti-checkout-web";
 
 const OrderScreen = () => {
   const { id } = useParams();
@@ -44,6 +45,49 @@ const OrderScreen = () => {
     );
   }
 
+  // const handleKhaltiPayment = async () => {
+  //   try {
+  //     // Fetch Khalti public key from your server
+  //     await axios.get("/api/config/khalti");
+  
+  //     // Create Khalti checkout configuration
+  //     const config = {
+  //       // Khalti public key
+  //       // publicKey: test_public_key_2568b3d2af3d4e3097c6d1d7df859d7e,
+  //       productIdentity: "Ree_147", // Provide a unique identifier for your product
+  //       productName: "Artisan",
+  //       productUrl: "https://api/khalti",
+  //       eventHandler: {
+  //         onSuccess(payload) {
+  //           // Handle successful payment
+  //           console.log("Payment successful", payload);
+  //           // Dispatch an action or perform other actions as needed
+  //         },
+  //         onError(error) {
+  //           // Handle payment error
+  //           console.log("Payment error", error);
+  //         },
+  //         onClose() {
+  //           // Handle payment close event
+  //           console.log("Payment closed");
+  //         },
+  //       },
+  //     };
+  
+  //     // Create Khalti checkout instance and show it
+  //     const checkout = new KhaltiCheckout(config);
+  //     const btn = document.getElementById("payment-button");
+  //     btn.onclick = function () {
+  //       // minimum transaction amount must be 10, i.e 1000 in paisa.
+  //       checkout.show({ amount: 1000 });
+  //     };
+  //   } catch (error) {
+  //     // Handle any errors that occurred during the try block
+  //     console.error("Error in handleKhaltiPayment:", error);
+  //     // You might want to dispatch an action or show an error message here
+  //   }
+  // };
+  
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -80,8 +124,8 @@ const OrderScreen = () => {
 
   //Deliver
   const deliverHandler = () => {
-    dispatch(deliverOrder(order))
-  }
+    dispatch(deliverOrder(order));
+  };
 
   return loading ? (
     <Loader />
@@ -203,9 +247,34 @@ const OrderScreen = () => {
                       amount={order.totalPrice}
                       onSuccess={successPaymentHandler}
                     />
+                    
                   )}
                 </ListGroup.Item>
               )}
+              {/* {!order.isPaid && (
+                <ListGroup.Item>
+                  {loadingPay && <Loader />}
+                  {!sdkReady ? (
+                    <Loader />
+                  ) : (
+                    <>
+                      <PayPalButton
+                        amount={order.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      />
+                      <Button
+                      id="payment-button"
+                        type="button"
+                        onSuccess={successPaymentHandler}
+                        q a1zonClick={() => handleKhaltiPayment("khalti")}
+                      >
+                        Pay with Khalti
+                      </Button>
+                    </>
+                  )}
+                </ListGroup.Item>
+              )} */}
+
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
@@ -214,8 +283,8 @@ const OrderScreen = () => {
                   <ListGroup.Item className="text-center">
                     {/* Mark As Delivered Button */}
                     <Button
-                      type='button'
-                      className='btn btn-block button-rad'
+                      type="button"
+                      className="btn btn-block button-rad"
                       onClick={deliverHandler}
                     >
                       Mark As Delivered

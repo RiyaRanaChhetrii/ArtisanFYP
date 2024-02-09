@@ -24,6 +24,9 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  FORGOT_PASSWORD_REQUEST,
+  FORGOT_PASSWORD_SUCCESS,
+  FORGOT_PASSWORD_FAIL,
 } from "../constants/userConstants";
 
 // Reducer for handling user login actions.
@@ -140,3 +143,16 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
   }
 };
 
+
+export const forgotPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FORGOT_PASSWORD_REQUEST:
+      return { loading: true };
+    case FORGOT_PASSWORD_SUCCESS:
+      return { loading: false, success: true, message: action.payload };
+    case FORGOT_PASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
