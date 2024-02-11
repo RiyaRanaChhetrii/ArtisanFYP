@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
-import FormContainer from '../components/FormContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword } from '../action/userAction';
-import Loader from '../components/Loader';
+import React, { useState, useEffect } from "react";
+import { Form, Button, Alert } from "react-bootstrap";
+import FormContainer from "../components/FormContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { forgotPassword } from "../action/userAction";
+import Loader from "../components/Loader";
+import { Link } from "react-router-dom";
 
 const ForgetPasswordScreen = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 
   const forgotPasswordState = useSelector((state) => state.forgotPassword);
@@ -52,13 +53,13 @@ const ForgetPasswordScreen = () => {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            style={{ borderRadius: "10px" }}
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary" className="mr-2">
+        <Button style={{ letterSpacing : "4px"}} type="submit" variant="primary" className="button-rad mr-2 mt-4">
           Reset
         </Button>
-       
       </Form>
     </FormContainer>
   );

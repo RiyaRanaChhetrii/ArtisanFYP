@@ -93,7 +93,7 @@ const ProductEditScreen = () => {
 
   return (
     <>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
+      <Link to="/admin/productlist" className="btn btn-light my-3 button-rad">
         Go Back
       </Link>
       <FormContainer>

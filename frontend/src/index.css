@@ -33,6 +33,7 @@ h2{
 /* styles.css or your global styles file */
 .button-rad {
   border-radius: 10px;
+  letter-spacing: 4px;
 }
 
 

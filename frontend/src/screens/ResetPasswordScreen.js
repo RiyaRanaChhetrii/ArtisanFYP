@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Container, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
 const ResetPasswordScreen = () => {
@@ -29,36 +30,39 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      {resetSuccess ? (
-        <p>New password has been set.</p>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="password">New Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword">Confirm Password:</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit">Reset Password</button>
-        </form>
-      )}
-    </div>
+    <Container className="d-flex justify-content-center align-items-center text-white mt-2" style={{ minHeight: '70vh',maxWidth: '80vh', backgroundColor: '#3b3b4f' }}>
+      <div>
+        <h2 className='text-white'>Reset Password</h2>
+        {resetSuccess ? (
+          <p className='justify-content-center'>Thank You!....<br/>New password has been set.</p>
+        ) : (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="password">
+              <Form.Label className='mt-2'>New Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="confirmPassword">
+              <Form.Label className='mt-2'>Confirm Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className='mt-2'
+              />
+            </Form.Group>
+            <Button className="mt-3" variant="primary" type="submit">
+              Reset Password
+            </Button>
+          </Form>
+        )}
+      </div>
+    </Container>
   );
 };
 

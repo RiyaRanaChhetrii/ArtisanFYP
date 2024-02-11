@@ -32,7 +32,7 @@ const SearchBox = () => {
           <Button
             type="submit"
             variant="light"
-            className="p-2 d-flex align-items-center"
+            className="p-2 d-flex align-items-center button-rad"
             style={{ height: "30px", borderRadius: '10px' }}
           >
             Search

@@ -30,7 +30,7 @@ const HomeScreen = () => {
       {!keyword ? (
         <ProductCarousel />
       ) : (
-        <Link to="/" variant="dark" className="btn btn-dark">Go back</Link>
+        <Link to="/" variant="dark" className="btn btn-dark button-rad">Go back</Link>
       )}
       <h1>Lastest Products</h1>
       {loading ? (
