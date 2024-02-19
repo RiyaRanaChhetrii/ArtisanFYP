@@ -28,6 +28,8 @@ const OrderScreen = () => {
   const orderPay = useSelector((state) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
+  const [khaltiLoading, setKhaltiLoading] = useState(false);
+
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
 
@@ -45,49 +47,6 @@ const OrderScreen = () => {
     );
   }
 
-  // const handleKhaltiPayment = async () => {
-  //   try {
-  //     // Fetch Khalti public key from your server
-  //     await axios.get("/api/config/khalti");
-  
-  //     // Create Khalti checkout configuration
-  //     const config = {
-  //       // Khalti public key
-  //       // publicKey: test_public_key_2568b3d2af3d4e3097c6d1d7df859d7e,
-  //       productIdentity: "Ree_147", // Provide a unique identifier for your product
-  //       productName: "Artisan",
-  //       productUrl: "https://api/khalti",
-  //       eventHandler: {
-  //         onSuccess(payload) {
-  //           // Handle successful payment
-  //           console.log("Payment successful", payload);
-  //           // Dispatch an action or perform other actions as needed
-  //         },
-  //         onError(error) {
-  //           // Handle payment error
-  //           console.log("Payment error", error);
-  //         },
-  //         onClose() {
-  //           // Handle payment close event
-  //           console.log("Payment closed");
-  //         },
-  //       },
-  //     };
-  
-  //     // Create Khalti checkout instance and show it
-  //     const checkout = new KhaltiCheckout(config);
-  //     const btn = document.getElementById("payment-button");
-  //     btn.onclick = function () {
-  //       // minimum transaction amount must be 10, i.e 1000 in paisa.
-  //       checkout.show({ amount: 1000 });
-  //     };
-  //   } catch (error) {
-  //     // Handle any errors that occurred during the try block
-  //     console.error("Error in handleKhaltiPayment:", error);
-  //     // You might want to dispatch an action or show an error message here
-  //   }
-  // };
-  
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
@@ -120,6 +79,43 @@ const OrderScreen = () => {
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
     dispatch(payOrder(id, paymentResult));
+  };
+
+  const handleKhaltiPayment = async () => {
+    setKhaltiLoading(true);
+
+    try {
+      // Make a request to your server's Khalti endpoint
+      const response = await axios.post("/api/khalti", {
+        return_url: "http://localhost:3000/success",
+        website_url: "http://localhost:3000",
+        amount: parseInt(order.itemsPrice) * 100, // Assuming itemsPrice is the total order amount
+        purchase_order_id: order._id,
+        purchase_order_name: "Order Payment",
+        customer_info: {
+          name: order.user.name,
+          email: order.user.email,
+          phone: "9816503760", // Assuming you have a phone field in the shipping address
+        },
+      });
+
+      // Handle the response from your server
+      if (response.data.success) {
+        // Redirect to the Khalti payment page
+        window.location.href = response.data.data.payment_url;
+      } else {
+        console.error("Khalti payment failed:", response.data.message);
+        // Handle the case where payment was not successful
+      }
+    } catch (error) {
+      console.error(
+        "An error occurred while processing the Khalti payment:",
+        error
+      );
+      // Handle any error that occurs during the API call
+    }
+
+    setKhaltiLoading(false);
   };
 
   //Deliver
@@ -237,7 +233,7 @@ const OrderScreen = () => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {/* {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
@@ -250,8 +246,8 @@ const OrderScreen = () => {
                     
                   )}
                 </ListGroup.Item>
-              )}
-              {/* {!order.isPaid && (
+              )} */}
+              {!order.isPaid && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
@@ -263,17 +259,18 @@ const OrderScreen = () => {
                         onSuccess={successPaymentHandler}
                       />
                       <Button
-                      id="payment-button"
+                        id="payment-button"
                         type="button"
-                        onSuccess={successPaymentHandler}
-                        q a1zonClick={() => handleKhaltiPayment("khalti")}
+                        amount={order.totalPrice}
+                        onClick={handleKhaltiPayment}
+                        disabled={khaltiLoading}
                       >
-                        Pay with Khalti
+                        {khaltiLoading ? "Processing..." : "Pay with Khalti"}
                       </Button>
                     </>
                   )}
                 </ListGroup.Item>
-              )} */}
+              )}
 
               {loadingDeliver && <Loader />}
               {userInfo &&

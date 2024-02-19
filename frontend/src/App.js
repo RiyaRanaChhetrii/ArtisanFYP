@@ -20,6 +20,7 @@ import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import ForgetPasswordScreen from "./screens/ForgetPasswordScreen";
 import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import SuccessScreen from "./screens/SuccessScreen";
 const App = () => {
   return (
     <Router>
@@ -30,6 +31,7 @@ const App = () => {
             <Route path="/order/:id" element={<OrderScreen />} />
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
+            <Route path="/success" element={<SuccessScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/forgot-password" element={<ForgetPasswordScreen />} />

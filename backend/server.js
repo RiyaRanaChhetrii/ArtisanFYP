@@ -1,6 +1,6 @@
 import path from "path";
 import express from "express";
-// import axios from "axios";
+import axios from "axios";
 import dotenv from "dotenv";
 import colors from "colors";
 import morgan from "morgan";
@@ -45,9 +45,31 @@ app.get("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-// app.get("/api/config/khalti", (req, res) =>
-//   res.send(process.env.KHALTI_SECRET_KEY)
-// );
+
+//Khalti route
+app.post("/api/khalti", async (req, res) => {
+  const payload = req.body;
+  const khaltiResponse = await axios.post(
+    "https://a.khalti.com/api/v2/epayment/initiate/",
+    payload,
+    {
+      headers: {
+        Authorization: `Key ${process.env.KHALTI_SECRET_KEY}`,
+      },
+    }
+  );
+  if (khaltiResponse) {
+    res.json({
+      success: true,
+      data: khaltiResponse?.data,
+    });
+  } else {
+    res.json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+});
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
