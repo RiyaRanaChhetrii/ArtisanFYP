@@ -12,8 +12,14 @@ import {
 import { protect, admin } from "../middleware/authMiddleware.js";
 
 router.route("/").get(getProducts).post(protect, admin, createProduct)
+
+// Handling reviews for a specific product ID
 router.route("/:id/reviews").post(protect, createProductReview)
+
+// Getting top-rated products
 router.get('/top', getTopProducts)
+
+// Routes for a specific product ID, supporting GET, DELETE, and PUT operations
 router
   .route("/:id")
   .get(getProductById)

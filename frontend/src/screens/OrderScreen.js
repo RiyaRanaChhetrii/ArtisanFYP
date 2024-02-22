@@ -63,7 +63,7 @@ const OrderScreen = () => {
 
     // Function to add PayPal SDK script dynamically
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get("/api/config/paypal");
+      const { data: clientId } = await axios.get("/api/config/paypal"); // Fetch the cliend Id from paypal server
       const script = document.createElement("script");
     
       // Creating and appending PayPal SDK script to the document

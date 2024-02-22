@@ -38,6 +38,7 @@ const SearchBox = () => {
           />
         </Col>
         <Col sm={4} md={2} className="mt-2 mt-sm-0">
+          
           {/* Button for search form */}
           <Button
             type="submit"
