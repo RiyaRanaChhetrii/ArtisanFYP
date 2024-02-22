@@ -13,7 +13,9 @@ import {
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 import Paginate from "../components/Paginate";
 
+// This screen for managing products in an admin panel
 const ProductListScreen = ({ match }) => {
+  // Extracting 'pageNumber' from URL parameters using React Router
   const { pageNumber } = useParams() || 1;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +23,8 @@ const ProductListScreen = ({ match }) => {
   // Get product list from Redux state
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
-
+  
+  //Extract product delete form redux state
   const productDelete = useSelector((state) => state.productDelete);
   const {
     loading: loadingDelete,
@@ -29,6 +32,7 @@ const ProductListScreen = ({ match }) => {
     success: successDelete,
   } = productDelete;
 
+   // Extract product create from redux state
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -37,6 +41,7 @@ const ProductListScreen = ({ match }) => {
     product: createdProduct,
   } = productCreate;
 
+  // Extract user info from redux state
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -49,9 +54,9 @@ const ProductListScreen = ({ match }) => {
     }
 
     if (successCreate) {
-      navigate(`/admin/product/${createdProduct._id}/edit`);
+      navigate(`/admin/product/${createdProduct._id}/edit`); // Redirect after creating a new product
     } else {
-      dispatch(listProducts('', pageNumber));
+      dispatch(listProducts('', pageNumber)); // Fetch product list
     }
   }, [
     dispatch,
@@ -63,12 +68,14 @@ const ProductListScreen = ({ match }) => {
     pageNumber,
   ]);
 
+   // Handler to delete a product
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       dispatch(deleteProduct(id));
     }
   };
 
+   // Handler to create a new product
   const createProductHandler = () => {
     dispatch(createProduct());
   };
@@ -80,6 +87,7 @@ const ProductListScreen = ({ match }) => {
           <h1>Products</h1>
         </Col>
         <Col className="text-right">
+          {/* Create product  */}
           <Button className="my-3 button-rad" onClick={createProductHandler}>
             <i className="fas fa-plus"></i> Create Product
           </Button>

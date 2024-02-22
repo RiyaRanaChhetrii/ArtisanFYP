@@ -13,34 +13,38 @@ import {
 import MessageOne from "../components/MessageOne";
 import { addToCart, removeFromCart } from "../action/cartAction";
 
+// Functional component for the shopping cart screen
 const CartScreen = () => {
+  // Extract parameters and location from React Router
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Extract productId and quantity from the URL query string
   const productId = id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
 
   const dispatch = useDispatch(); // Initialize useDispatch hook
 
+  // Access the cart state from the Redux store using useSelector
   const cart = useSelector((state) => state.cart);
   const { cartItems = [] } = cart; // Provide an empty array as a default value
 
-    // Use useSelector to get userInfo from the Redux state
-    // const userLogin = useSelector((state) => state.userLogin); 
-    // const { userInfo } = userLogin;
-    
+ 
+ // Effect to add a product to the cart when the component mounts 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(addToCart(productId, qty)); // Add a product to cart
     }
   }, [dispatch, productId, qty]);
 
+  // Handler to remove an item from the cart
   const removeFromCardHandler = (id) => {
     console.log("remove");
     dispatch(removeFromCart(id))
   };
 
+   // Handler to navigate to the login or shipping page during checkout
   const checkoutHandler = () => {
     navigate('/login?redirect=shipping')
     // if (userInfo) {
@@ -66,6 +70,7 @@ const CartScreen = () => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
+                  {/* Displaying product details */}
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
@@ -74,6 +79,7 @@ const CartScreen = () => {
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
+                    {/* Dropdown for selecting quantity */}
                     <Form.Control
                       as="select"
                       value={item.qty}
@@ -89,6 +95,7 @@ const CartScreen = () => {
                     </Form.Control>
                   </Col>
                   <Col md={2}>
+                    {/* Button to remove item from cart */}
                     <Button
                       type="button"
                       variant="light"
@@ -103,6 +110,8 @@ const CartScreen = () => {
           </ListGroup>
         )}
       </Col>
+
+       {/* Right column displaying subtotal and checkout button */}
       <Col md={4}>
         <Card>
           <ListGroup variant="flush">
@@ -116,6 +125,7 @@ const CartScreen = () => {
               ).toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
+               {/* Button to proceed to checkout */}
               <Button
                 type="button"
                 className="btn-block button-rad"

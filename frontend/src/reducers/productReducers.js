@@ -25,6 +25,7 @@ import {
   PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
+// Design to manage state related listing product
 export const productListReducer = (state = { products: [] }, action) => {
   switch (action.type) {   
     case PRODUCT_LIST_REQUEST:
@@ -43,6 +44,7 @@ export const productListReducer = (state = { products: [] }, action) => {
   }
 };
 
+// Design to manage Displaying Product Details 
 export const productDetailsReducer = (
   state = { product: { reviews: [] } },
   action
@@ -59,6 +61,7 @@ export const productDetailsReducer = (
   }
 };
 
+// Design to manage state related Delete Product
 export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_DELETE_REQUEST:
@@ -72,6 +75,7 @@ export const productDeleteReducer = (state = {}, action) => {
   }
 }
 
+// Design to manage state related Creating product
 export const productCreateReducer = (state = {}, action) => {
   switch (action.type) {
     case PRODUCT_CREATE_REQUEST:
@@ -80,14 +84,14 @@ export const productCreateReducer = (state = {}, action) => {
       return { loading: false, success: true, product: action.payload }
     case PRODUCT_CREATE_FAIL:
       return { loading: false, error: action.payload }
-    case PRODUCT_CREATE_RESET:
+    case PRODUCT_CREATE_RESET: // Use to clear the state
       return {}
     default:
       return state
   }
 }
 
-// Reducer function for handling product updates
+// Handle product update
 
 export const productUpdateReducer = (state = { product: {} }, action) => {
   switch (action.type) {
@@ -97,14 +101,14 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
       return { loading: false, success: true, product: action.payload }
     case PRODUCT_UPDATE_FAIL:
       return { loading: false, error: action.payload }
-    case PRODUCT_UPDATE_RESET:
+    case PRODUCT_UPDATE_RESET: // Used to clear state for the next update operation
       return { product: {} }
     default:
       return state
   }
 }
 
-// Reducer function for handling product updates
+// Design to manage state related Creating product reviews
 
 export const productReviewCreateReducer = (state = {}, action) => {
   switch (action.type) {
@@ -121,7 +125,7 @@ export const productReviewCreateReducer = (state = {}, action) => {
   }
 }
 
-// Reducer function for handling top products
+// Design to manage state related fetching top rated product
 
 export const productTopRatedReducer = (state = { products: [] }, action) => {
   switch (action.type) {

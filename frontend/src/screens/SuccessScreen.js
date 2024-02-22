@@ -1,5 +1,6 @@
 import React from 'react'
 
+// SuccessScreen component if khalti payment success 
 const SuccessScreen = () => {
   return (
     <div>

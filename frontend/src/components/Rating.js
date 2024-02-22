@@ -2,10 +2,11 @@ import React from "react"
 import PropTypes from 'prop-types'
 
 
-
+// Functional component for displaying a star rating
 const Rating = ({ value, text, color }) => {
   return (
     <div className="rating">
+      {/* Star icons for different rating levels */}
       <span>
         <i style={{color}}
           className={
@@ -61,15 +62,18 @@ const Rating = ({ value, text, color }) => {
           }
         ></i>
       </span>
+      {/* Display additional text (if provided) */}
       <span>{text && text}</span>
     </div>
   );
 };
 
+// Default props for the Rating component
 Rating.defaultProps = {
-    color: '#f8e825',
+    color: '#f8e825', // Default star color
 }
 
+// Prop types validation for Rating component
 Rating.proptype = {
   value: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,

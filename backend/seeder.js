@@ -8,10 +8,13 @@ import Product from './models/productModel.js'
 import Order from './models/orderModel.js'
 import connectDB from './config/db.js'
 
+// Load environment variables from .env file
 dotenv.config()
 
+// Establish connection to the MongoDB database
 connectDB()
 
+// Function to import data into the database
 const importData = async () => {
     try{
         //Delete existing data
@@ -26,6 +29,8 @@ const importData = async () => {
         const samplProducts = products.map(product => {
             return { ...product, user: adminUser }
         })
+
+        // Insert the modified products into the database
         await Product.insertMany(samplProducts)
 
         console.log('Data Imported!'.green.inverse)
@@ -37,6 +42,7 @@ const importData = async () => {
     }
 }
 
+// Function to destroy data into the database
 const destroyData = async () => {
     try{
         //Delete existing data

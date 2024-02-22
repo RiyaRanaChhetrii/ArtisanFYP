@@ -1,6 +1,7 @@
 import React from "react";
 import { Spinner } from "react-bootstrap";
 
+// Functional component for the Loader
 const Loader = () => {
   return (
     <Spinner

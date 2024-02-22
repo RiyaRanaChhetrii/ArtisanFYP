@@ -57,6 +57,7 @@ const OrderListScreen = () => {
                 <td>{order.user && order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice}</td>
+                {/* if paid then display time else display cross red sign  */}
                 <td>
                   {order.isPaid ? (
                     order.paidAt.substring(0, 10)
@@ -65,6 +66,7 @@ const OrderListScreen = () => {
                   )}
                 </td>
                 <td>
+                {/* if delivered then display time else display cross red sign  */}
                   {order.isDelivered ? (
                     order.deliveredAt.substring(0, 10)
                   ) : (

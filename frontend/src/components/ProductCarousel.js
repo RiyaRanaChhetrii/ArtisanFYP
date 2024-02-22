@@ -6,14 +6,17 @@ import Loader from "./Loader";
 import MessageOne from "./MessageOne";
 import { listTopProducts } from "../action/productAction";
 
+// Functional component for a carousel displaying top-rated products
 const ProductCarousel = () => {
   const dispatch = useDispatch();
 
+  // Get top-rated products from redux store
   const productTopRated = useSelector((state) => state.productTopRated);
   const { loading, error, products } = productTopRated;
 
+  // Dispatch action to get top-rated products when component mount
   useEffect(() => {
-    dispatch(listTopProducts());
+    dispatch(listTopProducts()); 
   }, [dispatch]);
 
   return loading ? (
@@ -21,6 +24,7 @@ const ProductCarousel = () => {
   ) : error ? (
     <MessageOne variant='danger'>{error}</MessageOne>
   ) : (
+    // Display a Carousel component with top-rated products
     <Carousel pause='hover' className='bg' style={{ backgroundColor: "rgba(10, 10, 35, 0.5)" }}>
       {products.map((product) => (
         <Carousel.Item key={product._id}>

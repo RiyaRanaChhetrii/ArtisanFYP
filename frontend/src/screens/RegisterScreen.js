@@ -7,28 +7,35 @@ import MessageOne from "../components/MessageOne";
 import Loader from "../components/Loader";
 import { register } from "../action/userAction";
 
+// Functional component for the Register screen
 const RegisterScreen = () => {
+  // State for user registration data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
-
+  
+  //Hooks
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // To get userRegister state from redux store
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
+   // Get redirect parameter from query string in location
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
+  //useEffect to redirect after successful registration  
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
     }
   }, [navigate, userInfo, redirect]);
 
+  // Handler for form submission
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -57,9 +64,12 @@ const RegisterScreen = () => {
     >
       <FormContainer>
         <h1 style={{ color: "white", textAlign: "center" }}>Sign Up</h1>
+        
         {message && <MessageOne variant="danger">{message}</MessageOne>}
         {error && <MessageOne variant="danger">{error}</MessageOne>}
         {loading && <Loader />}
+         
+        {/* Registration form */} 
         <Form onSubmit={submitHandler} >
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>

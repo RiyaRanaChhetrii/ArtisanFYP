@@ -9,12 +9,14 @@ import Loader from "../components/Loader.js";
 import { listProductsDetails, updateProduct } from "../action/productAction";
 import { PRODUCT_UPDATE_RESET } from "../constants/productConstants";
 
+// Product Edit Screen in admin panel 
 const ProductEditScreen = () => {
+  // Extracting productId from the route parameters
   const { productId } = useParams();
-  // console.log('productId:', productId)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // State variables to manage form fields and uploading state
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState("");
@@ -23,9 +25,11 @@ const ProductEditScreen = () => {
   const [describe, setDescribe] = useState("");
   const [uploading, setUploading] = useState(false);
 
+  // Redux state product details
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  // Redux state for product update
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
@@ -33,11 +37,13 @@ const ProductEditScreen = () => {
     success: successUpdate,
   } = productUpdate;
 
+  // Fetch product details on component mount
   useEffect(() => {
     if (successUpdate) {
-      dispatch({ type: PRODUCT_UPDATE_RESET });
-      navigate("/admin/productlist");
+      dispatch({ type: PRODUCT_UPDATE_RESET }); //reset for next operation
+      navigate("/admin/productlist"); //navigate to admin product list screen
     } else {
+      // Fetch product details if not already loaded
       if (!product || product._id !== productId) {
         dispatch(listProductsDetails(productId));
       } else {
@@ -54,6 +60,7 @@ const ProductEditScreen = () => {
     }
   }, [dispatch, navigate, productId, product, successUpdate]);
 
+  // Function to handle file upload
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -76,6 +83,7 @@ const ProductEditScreen = () => {
     }
   };
 
+  // Function to handle form submission
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -98,13 +106,18 @@ const ProductEditScreen = () => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {/* Display loader while updating */}
         {loadingUpdate && <Loader />}
+        {/* Display error message if update fails */}
         {errorUpdate && <MessageOne variant="danger">{errorUpdate}</MessageOne>}
         {loading ? (
+           // Show loader while fetching product details
           <Loader />
         ) : error ? (
           <MessageOne variant="danger">{error}</MessageOne>
         ) : (
+
+           // Display the form for updating the product
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
@@ -174,6 +187,7 @@ const ProductEditScreen = () => {
               ></Form.Control>
             </Form.Group>
 
+             {/* Button for updating the product */}
             <Button className="button-rad" type="submit" variant="primary">
               Update
             </Button>

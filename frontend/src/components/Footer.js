@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
+// Functional component for Footer
 export const Footer = () => {
   return (
     <footer style={{ backgroundColor: '#1b1b32', color: 'white' }}>

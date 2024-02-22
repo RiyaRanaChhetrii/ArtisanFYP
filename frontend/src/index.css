@@ -18,16 +18,20 @@ main{
 
 h3{
   padding: 1rem 0;
+  font-weight: bold;
 }
 
 h1{
   font-size: 1.4rem;
   padding: 1rem;
+  font-weight: bold;
+
 }
 
 h2{
   font-size: 1.4rem;
   padding: 0.5 0rem;
+  font-weight: bold; 
 }
 
 /* styles.css or your global styles file */
